@@ -15,7 +15,7 @@ This project showcases not only IT troubleshooting but also **infrastructure aut
 
 ## 📐 Architecture
 
-\`\`\`mermaid
+```mermaid
 flowchart LR
     A[Terraform] --> B[AWS VMs]
     B --> B1[NIST 800-53]
@@ -26,7 +26,6 @@ flowchart LR
     D[GitHub Actions (CI/CD)] --> A
     D --> C
     B --> E[Documentation (Control Mapping & Runbook)]
-\`\`\`
 
 ---
 
