@@ -14,7 +14,6 @@ This project showcases not only IT troubleshooting but also **infrastructure aut
 ---
 
 ## 📐 Architecture
-
 ```mermaid
 flowchart LR
     A[Terraform] --> B[AWS VMs]
