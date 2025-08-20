@@ -1,216 +1,119 @@
 # 🛡️ Compliance Lab with Terraform, Ansible, and CI/CD
 
-In today’s financial, healthcare, and enterprise IT environments, compliance is not optional — it’s critical. Companies like **Adyen**, **Bloomberg LP**, **Unit**, and **NYU Langone** operate in heavily regulated industries where frameworks such as **NIST 800-53**, **CIS Benchmarks**, **PCI-DSS**, and **HIPAA** define how infrastructure and systems should be secured.  
+In today’s financial and enterprise IT environments, compliance is not optional — it’s critical. Companies like **Adyen**, **Bloomberg**, **NYU Langone**, and **Unit** operate in heavily regulated industries where frameworks such as **NIST 800-53**, **CIS Benchmarks**, **PCI-DSS**, and **HIPAA** define how infrastructure and systems must be secured.  
 
-This lab demonstrates how to provision secure cloud environments using **Terraform**, **Ansible**, and **GitHub Actions CI/CD**, applying compliance baselines for multiple frameworks and showing DevSecOps practices in action.
-
----
-
-## 🌐 Why a Compliance Lab?
-
-Traditional IT support often focuses on user devices, software installs, and resolving incidents. But in regulated industries like **finance** and **healthcare**, support engineers and senior engineers also need to think about **security baselines, compliance, and automation at scale**.  
-
-I wanted a project that:  
-- Shows I understand frameworks like **NIST**, **CIS**, **PCI-DSS**, and **HIPAA**.  
-- Proves I can apply these controls in real, technical ways.  
-- Incorporates **cloud infrastructure automation**.  
-- Uses **Terraform** (infrastructure provisioning) and **Ansible** (configuration management).  
-- Demonstrates **CI/CD pipelines** to enforce compliance checks automatically.  
-
-The result: a compliance lab that spins up AWS VMs, hardens them according to frameworks, and validates them through automated pipelines.
+This project is a hands-on **compliance lab** that demonstrates not just IT troubleshooting skills, but also **infrastructure automation, compliance enforcement, and DevSecOps thinking**.  
 
 ---
 
-## 🏗️ Architecture
+## 🚀 Why a Compliance Lab?
+
+Traditional IT support often focuses on user devices, software installs, and resolving incidents.  
+But in regulated industries like **finance and healthcare**, **IT Support Engineers and Senior Engineers** also need to think about:  
+
+- **Security baselines**  
+- **Compliance frameworks**  
+- **Automation at scale**  
+
+This project shows I can:  
+- Understand frameworks like NIST, CIS, PCI-DSS, and HIPAA.  
+- Apply these controls in real, technical ways.  
+- Incorporate **cloud infrastructure** — not just endpoints.  
+- Use **Terraform** (for cloud provisioning) and **Ansible** (for configuration management).  
+- Demonstrate **CI/CD pipelines** to enforce security checks.  
+
+The result: a compliance lab that spins up cloud VMs, hardens them according to different standards, and proves compliance with automated pipelines.  
+
+---
+
+## 🏗️ Architecture Overview
 
 The project uses three main components:  
 
-1. **Terraform** → Provisions 4 AWS VMs (`nist`, `cis`, `pci`, `hipaa`).  
-2. **Ansible** → Applies a common hardening baseline plus framework-specific rules.  
-3. **GitHub Actions CI/CD** → Lints, validates, and secures all infrastructure-as-code.  
+1. **Terraform** → Deploys AWS VMs, each tagged as `nist`, `cis`, `pci`, or `hipaa`.  
+2. **Ansible** → Applies a common hardening baseline (encryption, firewalls, logging) and framework-specific deltas.  
+3. **GitHub Actions CI/CD** → Lints, validates, and plans Terraform/Ansible code on every commit.  
 
-### Diagram
-\`\`\`mermaid
-flowchart LR
-    A[Terraform] --> B[AWS VMs]
-    B --> B1[NIST 800-53]
-    B --> B2[CIS Benchmarks]
-    B --> B3[PCI-DSS]
-    B --> B4[HIPAA]
-    C[Ansible] --> B
-    D[GitHub Actions (CI/CD)] --> A
-    D --> C
-    B --> E[Documentation (Control Mapping & Runbook)]
-\`\`\`
+### Diagram  
+(escape applied so it doesn’t break the big fence — replace `\`\`\`` with real backticks if you want GitHub to render Mermaid.)  
+
+\`\`\`mermaid  
+flowchart LR  
+    A[Terraform] --> B[AWS VMs (NIST / CIS / PCI / HIPAA)]  
+    C[Ansible] --> B  
+    D[GitHub Actions (CI/CD)] --> A  
+    D --> C  
+    B --> E[Documentation (Control Mapping & Runbook)]  
+\`\`\`  
 
 ---
-# 📂 Project File Structure
 
-```plaintext
-compliance-lab/                 # Root project folder
-├── terraform/                  # Terraform IaC for AWS VM provisioning
-│   ├── main.tf                 # Main Terraform configuration
-│   ├── variables.tf            # Input variables for Terraform
-│   └── outputs.tf              # Outputs (e.g., VM IPs)
+## 📂 Project File Structure  
+
+(escape applied here too so it doesn’t break the big fence — replace `\`\`\`` with real backticks for formatting.)  
+
+\`\`\`plaintext
+compliance-lab/
+├── terraform/                 # IaC for AWS VM provisioning
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
 │
-├── ansible/                    # Ansible configs for compliance enforcement
-│   ├── inventories/            # Dynamic AWS inventory
-│   │   └── aws_ec2.yaml
-│   ├── group_vars/             # Vars grouped by compliance framework
-│   │   ├── nist.yaml           # NIST 800-53 controls
-│   │   ├── cis.yaml            # CIS Benchmarks
-│   │   ├── pci.yaml            # PCI-DSS controls
-│   │   └── hipaa.yaml          # HIPAA healthcare controls
-│   ├── roles/                  # Reusable compliance roles
-│   │   ├── common/             # Shared hardening (firewall, patching, etc.)
-│   │   ├── nist/               # NIST-specific hardening tasks
-│   │   ├── cis/                # CIS-specific hardening tasks
-│   │   ├── pci/                # PCI-specific hardening tasks
-│   │   └── hipaa/              # HIPAA-specific hardening tasks
-│   └── playbooks/              # Playbooks to run roles
-│       ├── site.yaml           # Main playbook (applies all)
-│       ├── nist.yaml
-│       ├── cis.yaml
-│       ├── pci.yaml
-│       └── hipaa.yaml
+├── ansible/                   # Configuration management
+│   ├── roles/
+│   │   ├── common/            # Shared hardening (firewall, logging, updates)
+│   │   ├── nist/              # NIST-specific tasks
+│   │   ├── cis/               # CIS-specific tasks
+│   │   ├── pci/               # PCI-DSS-specific tasks
+│   │   └── hipaa/             # HIPAA-specific tasks
+│   └── playbook.yml
 │
-├── .github/workflows/          # GitHub Actions CI/CD pipelines
-│   ├── terraform.yml           # Terraform lint/validate/plan
-│   ├── ansible.yml             # Ansible lint/syntax check
-│   └── security.yml            # tfsec + ansible-lint security scans
+├── .github/workflows/         # CI/CD pipelines
+│   ├── terraform.yml
+│   ├── ansible.yml
+│   └── security.yml
 │
-├── docs/                       # Documentation
-│   ├── compliance-mapping.md   # Maps roles to compliance controls
-│   ├── architecture.png        # Architecture diagram
-│   └── runbook.md              # How to operate the lab
+├── docs/                      # Documentation & runbooks
+│   ├── control-mapping.md     # Control-to-task mappings
+│   └── runbook.md             # Operational runbook
 │
-├── Makefile                    # Shortcuts: `make apply`, `make ansible`, etc.
-└── README.md                   # Project overview and setup guide
+└── README.md                  # This file
+\`\`\`  
+
 ---
+
 ## ⚖️ Compliance Frameworks
 
-### NIST 800-53 VM
-- AC-2: Unique user accounts, disable root/guest login.  
-- AC-11: Session timeout after inactivity.  
-- SC-28: Full disk encryption.  
-- AU-2/AU-6: Centralized audit logging.  
-- SI-2: Automated patching.  
-- SC-7: Firewalls default-deny.  
+Each VM is aligned to a specific compliance framework:  
 
-### CIS Benchmarks VM
-- Disable guest accounts.  
-- Set minimum password length to 12.  
-- Enable Gatekeeper-like protections.  
-- Disable unnecessary services (e.g., Avahi).  
-- Enforce strict file permissions (shadow, passwd).  
+### 🔒 NIST 800-53 VM
+- AC-2: Unique user accounts, disable root/guest login  
+- AC-11: Session timeout after inactivity  
+- SC-28: Full disk encryption  
+- AU-2/AU-6: Centralized audit logging  
+- SI-2: Automated patching  
+- SC-7: Firewalls default-deny  
 
-### PCI-DSS VM
-- Req 1: Firewall restricts inbound/outbound traffic.  
-- Req 5: Anti-malware protection (ClamAV).  
-- Req 6: Patching within 30 days.  
-- Req 7/8: Role-based access + MFA for SSH.  
-- Req 10: Centralized audit logging.  
-- Req 11: Vulnerability scans (future stretch goal).  
+### 🛡️ CIS Benchmarks VM
+- Disable guest accounts  
+- Set minimum password length to 12  
+- Enable Gatekeeper (macOS analogy)  
+- Disable unnecessary services (e.g., Avahi)  
+- Enforce file permissions (shadow, passwd)  
 
-### HIPAA VM
-- Access Control: Restrict interactive users; RBAC groups.  
-- Audit Controls: Extended log retention (180 days).  
-- Integrity: Strict permissions on PHI directories.  
-- Authentication: SSH hardened with modern ciphers.  
-- Transmission Security: Strong encryption for SSH traffic.  
+### 💳 PCI-DSS VM
+- Req 1: Firewall restricts inbound/outbound traffic  
+- Req 5: Anti-malware protection (ClamAV)  
+- Req 6: Patching within 30 days  
+- Req 7/8: Role-based access + MFA for SSH  
+- Req 10: Centralized audit logging  
+- Req 11: Vulnerability scans (future stretch goal)  
 
----
-
-## ⚙️ Implementation
-
-### 1. Terraform Infrastructure
-Terraform provisions 4 AWS EC2 instances (`t3.small`), each tagged with its compliance framework.  
-Dynamic inventory groups hosts for Ansible automatically.  
-
-Example snippet:  
-\`\`\`hcl
-module "nist" {
-  source        = "./modules/vm"
-  name          = "compliance-nist"
-  instance_type = "t3.small"
-  tags          = { framework = "nist" }
-}
-\`\`\`
-
-### 2. Ansible Hardening
-**Common baseline role**:  
-- Disable root login.  
-- Enforce password policy.  
-- Idle session lock.  
-- Enable UFW firewall.  
-- Configure unattended upgrades.  
-- Centralized audit logging.  
-
-**Framework-specific roles**:  
-- NIST → fail2ban, SSH ciphers.  
-- CIS → disable services, enforce file perms.  
-- PCI → anti-malware, MFA for SSH.  
-- HIPAA → log retention, PHI directories, SSH hardening.  
-
-### 3. CI/CD Pipelines
-GitHub Actions runs:  
-- Terraform CI → validate & plan.  
-- Ansible CI → lint & dry-run.  
-- Security Checks → tfsec, ansible-lint.  
-
----
-
-## 🔄 Lab vs. Production
-
-This project is designed as a **lab environment**, but it is inspired by how compliance is implemented in **production environments** at scale.  
-
-### Lab Environment
-- **Cloud Scope**: Runs in AWS free-tier (t3.small) VMs, provisioned via Terraform.  
-- **Users**: Simulated system users, test service accounts, and mock RBAC groups.  
-- **Security Controls**: Enforced via Ansible playbooks (e.g., SSH ciphers, password policies, firewalls, log retention).  
-- **Audit Logging**: Centralized with rsyslog and local file retention.  
-- **Authentication**: Basic local users + SSH key enforcement (MFA is mocked).  
-- **Monitoring**: Limited to OS-level logging and CI/CD linting/security scans.  
-- **Compliance Evidence**: Markdown docs showing which control maps to which playbook.  
-
-### Production Environment
-- **Enterprise IAM**: Centralized identity via Okta, Azure AD, or Google Workspace, enforcing MFA, SSO, and conditional access.  
-- **Endpoint Security**: Macs/PCs managed with Jamf or Intune, enforcing CIS baselines, encryption, and automated patching.  
-- **Network Security**: Enforced via firewalls, VPNs, zero-trust access, and cloud security groups.  
-- **Audit Logging**: Forwarded to a SIEM (Splunk, ELK, Datadog) with real-time alerting, retention policies, and compliance dashboards.  
-- **Vulnerability Management**: Automated scans (Qualys, Tenable, or AWS Inspector) with remediation pipelines.  
-- **Change Management**: All infra-as-code changes gated by CI/CD approval workflows, peer reviews, and automated policy-as-code checks (OPA, Sentinel).  
-- **Compliance Reporting**: Evidence collected via GRC tools, mapped against frameworks like PCI-DSS, HIPAA, and SOC 2.  
-- **Disaster Recovery**: Backups, redundant regions, and failover strategies tested and documented.  
-
----
-
-✅ **Why this matters:**  
-The **lab proves I understand the mechanics of compliance controls** and how to automate them with Terraform + Ansible.  
-The **production mapping shows I understand how large enterprises (finance, healthcare, embedded banking) actually enforce and audit compliance at scale**.  
-This is the bridge between *IT support engineering* and *senior-level systems/infra engineering in regulated industries*.  
----
-
-## 🚀 What’s Next?
-
-- Add centralized logging VM (rsyslog/ELK).  
-- Stream logs to CloudWatch/Elastic.  
-- OSQuery for endpoint compliance.  
-- Okta/Azure AD integration for identity.  
-- CI/CD with approval gates + vuln scans.  
-
----
-
-## 📚 References
-
-- NIST 800-53 Rev. 5: https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final  
-- CIS Benchmarks: https://www.cisecurity.org/cis-benchmarks  
-- PCI-DSS v4.0: https://www.pcisecuritystandards.org/standards/  
-- HIPAA (45 CFR 164 / NIST 800-66): https://www.hhs.gov/hipaa/for-professionals/security/index.html  
-- Terraform: https://developer.hashicorp.com/terraform/docs  
-- Ansible: https://docs.ansible.com/  
-- GitHub Actions: https://docs.github.com/en/actions  
-- tfsec: https://aquasecurity.github.io/tfsec/  
-- ansible-lint: https://ansible.readthedocs.io/projects/lint/  
+### 🏥 HIPAA VM
+- Access Control: Restrict interactive users; enforce RBAC  
+- Audit Controls: Extended log retention (180 days); centralized logging hooks  
+- Integrity: Strict permissions on PHI directories  
+- Person/Entity Authentication: SSH hardening (strong KEX/Ciphers/MACs)  
+- Transmission Security: Encrypted data in transit (strong SSH ciphers)  
 
 ---
