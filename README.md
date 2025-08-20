@@ -38,14 +38,14 @@ The project uses three main components:
 > To keep this README in one code fence here, the inner backticks are escaped.  
 > **After you paste into GitHub**, replace `\`\`\`mermaid` with real ```mermaid so the diagram renders.
 
-\`\`\`mermaid
+```mermaid
 flowchart LR
     A[Terraform] --> B[AWS VMs (NIST / CIS / PCI / HIPAA)]
     C[Ansible] --> B
     D[GitHub Actions (CI/CD)] --> A
     D --> C
     B --> E[Documentation (Control Mapping & Runbook)]
-\`\`\`
+```
 
 ---
 
@@ -53,7 +53,7 @@ flowchart LR
 
 > Same note: inner block is escaped here. If you want GitHub to format it as a code block, replace `\`\`\`plaintext` with real ```plaintext.
 
-\`\`\`plaintext
+```plaintext
 compliance-lab/                 # Root project
 ├── terraform/                  # Terraform IaC for AWS VM provisioning
 │   ├── main.tf                 # Main resources (EC2, SSM, SGs)
@@ -91,7 +91,7 @@ compliance-lab/                 # Root project
 │
 ├── Makefile                    # Convenience targets (apply/ansible/destroy)
 └── README.md                   # This file
-\`\`\`
+```
 
 ---
 
