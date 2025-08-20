@@ -44,49 +44,48 @@ flowchart LR
 \`\`\`
 
 ---
-### 📂 Project File Structure
-compliance-lab/
-├── terraform/                  # Infrastructure as Code (Terraform)
-│   ├── main.tf                 # Provisions AWS VMs
-│   ├── variables.tf            # Input variables
-│   ├── outputs.tf              # Exported values (e.g., IPs)
-│   └── modules/
-│       └── vm/                 # Reusable VM module
+# 📂 Project File Structure
+
+```plaintext
+compliance-lab/                 # Root project folder
+├── terraform/                  # Terraform IaC for AWS VM provisioning
+│   ├── main.tf                 # Main Terraform configuration
+│   ├── variables.tf            # Input variables for Terraform
+│   └── outputs.tf              # Outputs (e.g., VM IPs)
 │
-├── ansible/                    # Configuration Management
-│   ├── inventories/
-│   │   └── aws_ec2.yaml        # Dynamic AWS inventory
-│   ├── group_vars/             # Framework-specific vars
-│   │   ├── nist.yaml
-│   │   ├── cis.yaml
-│   │   ├── pci.yaml
-│   │   └── hipaa.yaml
-│   ├── roles/                  # Ansible roles (hardening per framework)
-│   │   ├── common/             # Shared baseline
-│   │   ├── nist/
-│   │   ├── cis/
-│   │   ├── pci/
-│   │   └── hipaa/
-│   └── playbooks/              # Entry playbooks
+├── ansible/                    # Ansible configs for compliance enforcement
+│   ├── inventories/            # Dynamic AWS inventory
+│   │   └── aws_ec2.yaml
+│   ├── group_vars/             # Vars grouped by compliance framework
+│   │   ├── nist.yaml           # NIST 800-53 controls
+│   │   ├── cis.yaml            # CIS Benchmarks
+│   │   ├── pci.yaml            # PCI-DSS controls
+│   │   └── hipaa.yaml          # HIPAA healthcare controls
+│   ├── roles/                  # Reusable compliance roles
+│   │   ├── common/             # Shared hardening (firewall, patching, etc.)
+│   │   ├── nist/               # NIST-specific hardening tasks
+│   │   ├── cis/                # CIS-specific hardening tasks
+│   │   ├── pci/                # PCI-specific hardening tasks
+│   │   └── hipaa/              # HIPAA-specific hardening tasks
+│   └── playbooks/              # Playbooks to run roles
+│       ├── site.yaml           # Main playbook (applies all)
 │       ├── nist.yaml
 │       ├── cis.yaml
 │       ├── pci.yaml
 │       └── hipaa.yaml
 │
-├── .github/                    # GitHub Actions CI/CD
-│   └── workflows/
-│       ├── terraform-ci.yaml   # Terraform lint/validate/plan
-│       ├── ansible-ci.yaml     # Ansible lint/syntax check
-│       └── security.yaml       # tfsec + ansible-lint scans
+├── .github/workflows/          # GitHub Actions CI/CD pipelines
+│   ├── terraform.yml           # Terraform lint/validate/plan
+│   ├── ansible.yml             # Ansible lint/syntax check
+│   └── security.yml            # tfsec + ansible-lint security scans
 │
-├── docs/                       # Documentation & Compliance Mapping
-│   ├── compliance-mapping.md   # Maps controls to frameworks
+├── docs/                       # Documentation
+│   ├── compliance-mapping.md   # Maps roles to compliance controls
 │   ├── architecture.png        # Architecture diagram
-│   └── screenshots/            # Lab verification screenshots
+│   └── runbook.md              # How to operate the lab
 │
-├── Makefile                    # Shortcut commands (terraform, ansible, hipaa)
-├── README.md                   # Project overview & usage
-└── LICENSE                     # License file
+├── Makefile                    # Shortcuts: `make apply`, `make ansible`, etc.
+└── README.md                   # Project overview and setup guide
 ---
 ## ⚖️ Compliance Frameworks
 
