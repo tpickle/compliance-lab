@@ -1,0 +1,4 @@
+# Vars specific to PCI VM hardening
+mfa_for_ssh: true
+antimalware: clamav
+password_min_length: 12

@@ -1,0 +1,5 @@
+# Vars specific to CIS VM hardening
+disable_services:
+  - avahi-daemon
+  - cups
+password_min_length: 12

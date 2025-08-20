@@ -1,0 +1,5 @@
+# Vars specific to HIPAA VM hardening
+phi_dirs:
+  - /var/app/data
+log_retention_days: 180
+password_min_length: 12

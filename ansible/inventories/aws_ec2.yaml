@@ -1,0 +1,11 @@
+# Dynamic inventory that discovers your EC2 instances
+# Groups by the EC2 tag "framework" (nist/cis/pci/hipaa)
+plugin: aws_ec2
+regions: [us-east-1]          # Match your Terraform region
+keyed_groups:
+  - key: tags.framework
+    prefix: ""                # Group names will be exactly nist/cis/pci/hipaa
+hostnames:
+  - ip-address                # Use public IPs; switch to 'dns-name' if needed
+compose:
+  ansible_user: ubuntu        # Default user on Ubuntu images
