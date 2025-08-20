@@ -134,14 +134,14 @@ Each VM is aligned to a specific framework:
 - Outputs instance details for inventory.
 
 **Example (escaped here):**  
-\`\`\`hcl
+```hcl
 module "nist" {
   source        = "./modules/vm"
   name          = "compliance-nist"
   instance_type = "t3.small"
   tags          = { framework = "nist" }
 }
-\`\`\`
+```
 
 ### 2) Ansible (Configuration Management)
 - **Common baseline**: disable root login, enforce password policy, idle lock, UFW firewall, unattended upgrades, audit logging.  
