@@ -189,24 +189,6 @@ This project is a **lab demo** inspired by enterprise production:
 
 ---
 
-## 🎤 Interview Storytelling
-
-- **Problem:** Compliance controls are inconsistent and hard to enforce.  
-- **Solution:** IaC + configuration management + CI/CD to standardize baselines across VMs mapped to NIST, CIS, PCI-DSS, HIPAA.  
-- **Process:** Provision → Harden → Validate → Document mappings.  
-- **Result:** Demonstrated ability to go beyond tickets and deliver **automated, auditable** outcomes.
-
----
-
-## 🎯 Relevance to Employers
-
-- **Adyen (FinTech):** PCI-DSS alignment for payment systems at scale  
-- **Bloomberg (Financial Data):** NIST & CIS relevance for secure, reliable infra  
-- **NYU Langone (Healthcare):** HIPAA/NIST 800-66 mapping for PHI protection  
-- **Unit (Embedded Finance):** PCI + SaaS administration + automation for a fast-growing platform
-
----
-
 ## 🔮 Next Steps
 
 - Centralized logging VM and shipping to **CloudWatch/ELK/Splunk**  
@@ -229,7 +211,3 @@ This project is a **lab demo** inspired by enterprise production:
 - ansible-lint — https://ansible.readthedocs.io/projects/lint/
 
 ---
-
-## 📌 Repo Tagline (≤350 chars)
-
-End-to-end compliance lab using Terraform + Ansible to automate secure AWS VMs aligned with NIST 800-53, CIS Benchmarks, PCI-DSS, and HIPAA. Includes CI/CD with GitHub Actions, automated hardening, logging hooks, and docs. Showcases cloud infra automation, compliance mapping, and DevSecOps practices.
