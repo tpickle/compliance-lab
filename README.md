@@ -44,7 +44,50 @@ flowchart LR
 \`\`\`
 
 ---
-
+## 📂 Project File Structure
+compliance-lab/
+├── terraform/                  # Infrastructure as Code (Terraform)
+│   ├── main.tf                 # Provisions AWS VMs
+│   ├── variables.tf            # Input variables
+│   ├── outputs.tf              # Exported values (e.g., IPs)
+│   └── modules/
+│       └── vm/                 # Reusable VM module
+│
+├── ansible/                    # Configuration Management
+│   ├── inventories/
+│   │   └── aws_ec2.yaml        # Dynamic AWS inventory
+│   ├── group_vars/             # Framework-specific vars
+│   │   ├── nist.yaml
+│   │   ├── cis.yaml
+│   │   ├── pci.yaml
+│   │   └── hipaa.yaml
+│   ├── roles/                  # Ansible roles (hardening per framework)
+│   │   ├── common/             # Shared baseline
+│   │   ├── nist/
+│   │   ├── cis/
+│   │   ├── pci/
+│   │   └── hipaa/
+│   └── playbooks/              # Entry playbooks
+│       ├── nist.yaml
+│       ├── cis.yaml
+│       ├── pci.yaml
+│       └── hipaa.yaml
+│
+├── .github/                    # GitHub Actions CI/CD
+│   └── workflows/
+│       ├── terraform-ci.yaml   # Terraform lint/validate/plan
+│       ├── ansible-ci.yaml     # Ansible lint/syntax check
+│       └── security.yaml       # tfsec + ansible-lint scans
+│
+├── docs/                       # Documentation & Compliance Mapping
+│   ├── compliance-mapping.md   # Maps controls to frameworks
+│   ├── architecture.png        # Architecture diagram
+│   └── screenshots/            # Lab verification screenshots
+│
+├── Makefile                    # Shortcut commands (terraform, ansible, hipaa)
+├── README.md                   # Project overview & usage
+└── LICENSE                     # License file
+---
 ## ⚖️ Compliance Frameworks
 
 ### NIST 800-53 VM
