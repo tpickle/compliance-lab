@@ -44,7 +44,7 @@ flowchart LR
 \`\`\`
 
 ---
-## 📂 Project File Structure
+### 📂 Project File Structure
 compliance-lab/
 ├── terraform/                  # Infrastructure as Code (Terraform)
 │   ├── main.tf                 # Provisions AWS VMs
