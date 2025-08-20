@@ -124,27 +124,6 @@ GitHub Actions runs:
 - **Production**: Enforcement via **Jamf/Intune** (endpoints), **Okta/Azure AD** (SSO), SIEM (Splunk/ELK), and full GRC tooling.  
 
 This proves I understand compliance at the **principle + tooling** level.  
-
----
-
-## 🗣️ Interview Storytelling
-
-**Problem**: Compliance frameworks are complex to apply consistently.  
-**Solution**: Build a compliance lab simulating NIST, CIS, PCI-DSS, and HIPAA controls.  
-**Process**: Terraform infra → Ansible hardening → CI/CD validation.  
-**Result**: A showcase of automation + compliance thinking beyond ticket-level IT support.  
-
----
-
-## 🎯 Why It Matters
-
-- **Adyen** → PCI-DSS critical for fintech.  
-- **Bloomberg LP** → NIST & CIS controls for financial data.  
-- **Unit** → Embedded finance requires compliance + automation at scale.  
-- **NYU Langone** → HIPAA alignment shows healthcare security awareness.  
-
-This project connects directly to these industries’ compliance needs.  
-
 ---
 
 ## 🚀 What’s Next?
@@ -170,7 +149,3 @@ This project connects directly to these industries’ compliance needs.
 - ansible-lint: https://ansible.readthedocs.io/projects/lint/  
 
 ---
-
-## 📌 Repo Tagline (350 chars)
-
-End-to-end compliance lab using Terraform + Ansible to automate secure AWS VMs aligned with NIST 800-53, CIS Benchmarks, PCI-DSS, and HIPAA. Includes CI/CD with GitHub Actions, automated hardening, logging hooks, and documentation. Showcases cloud infra automation, compliance mapping, and DevSecOps practices.
