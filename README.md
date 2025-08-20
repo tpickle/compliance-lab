@@ -35,9 +35,6 @@ The project uses three main components:
 3. **GitHub Actions CI/CD** → Lints, validates, and plans Terraform/Ansible code on every commit.
 
 ### Diagram  
-> To keep this README in one code fence here, the inner backticks are escaped.  
-> **After you paste into GitHub**, replace `\`\`\`mermaid` with real ```mermaid so the diagram renders.
-
 ```mermaid
 flowchart LR
     A[Terraform] --> B[AWS VMs (NIST / CIS / PCI / HIPAA)]
@@ -50,8 +47,6 @@ flowchart LR
 ---
 
 ## 📂 Project File Structure
-
-> Same note: inner block is escaped here. If you want GitHub to format it as a code block, replace `\`\`\`plaintext` with real ```plaintext.
 
 ```plaintext
 compliance-lab/                 # Root project
