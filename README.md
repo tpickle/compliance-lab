@@ -120,10 +120,33 @@ GitHub Actions runs:
 
 ## 🔄 Lab vs. Production
 
-- **Lab**: Terraform + Ansible simulate compliance. Logs are local. MFA is mocked.  
-- **Production**: Enforcement via **Jamf/Intune** (endpoints), **Okta/Azure AD** (SSO), SIEM (Splunk/ELK), and full GRC tooling.  
+This project is designed as a **lab environment**, but it is inspired by how compliance is implemented in **production environments** at scale.  
 
-This proves I understand compliance at the **principle + tooling** level.  
+### Lab Environment
+- **Cloud Scope**: Runs in AWS free-tier (t3.small) VMs, provisioned via Terraform.  
+- **Users**: Simulated system users, test service accounts, and mock RBAC groups.  
+- **Security Controls**: Enforced via Ansible playbooks (e.g., SSH ciphers, password policies, firewalls, log retention).  
+- **Audit Logging**: Centralized with rsyslog and local file retention.  
+- **Authentication**: Basic local users + SSH key enforcement (MFA is mocked).  
+- **Monitoring**: Limited to OS-level logging and CI/CD linting/security scans.  
+- **Compliance Evidence**: Markdown docs showing which control maps to which playbook.  
+
+### Production Environment
+- **Enterprise IAM**: Centralized identity via Okta, Azure AD, or Google Workspace, enforcing MFA, SSO, and conditional access.  
+- **Endpoint Security**: Macs/PCs managed with Jamf or Intune, enforcing CIS baselines, encryption, and automated patching.  
+- **Network Security**: Enforced via firewalls, VPNs, zero-trust access, and cloud security groups.  
+- **Audit Logging**: Forwarded to a SIEM (Splunk, ELK, Datadog) with real-time alerting, retention policies, and compliance dashboards.  
+- **Vulnerability Management**: Automated scans (Qualys, Tenable, or AWS Inspector) with remediation pipelines.  
+- **Change Management**: All infra-as-code changes gated by CI/CD approval workflows, peer reviews, and automated policy-as-code checks (OPA, Sentinel).  
+- **Compliance Reporting**: Evidence collected via GRC tools, mapped against frameworks like PCI-DSS, HIPAA, and SOC 2.  
+- **Disaster Recovery**: Backups, redundant regions, and failover strategies tested and documented.  
+
+---
+
+✅ **Why this matters:**  
+The **lab proves I understand the mechanics of compliance controls** and how to automate them with Terraform + Ansible.  
+The **production mapping shows I understand how large enterprises (finance, healthcare, embedded banking) actually enforce and audit compliance at scale**.  
+This is the bridge between *IT support engineering* and *senior-level systems/infra engineering in regulated industries*.  
 ---
 
 ## 🚀 What’s Next?
